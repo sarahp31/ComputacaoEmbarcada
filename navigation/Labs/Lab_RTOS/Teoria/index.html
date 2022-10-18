@@ -1,0 +1,1610 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.1, mkdocs-material-8.5.6">
+    
+    
+      
+        <title>Teoria - 5s - Computação Embarcada</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.20d9efc8.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/insper-education/active-handout-css@main/devlife.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed:700|Oxygen+Mono|Source+Sans+Pro:700|Source+Serif+Pro&amp;display=swap">
+<link rel="stylesheet" href="../../../../assets/css/devlife.css">
+
+
+    <script>
+        window.ihandout_config = JSON.parse(`{"report": {"api-base": "https://devlife.insper-comp.com.br/api/offerings/1/", "url": "https://devlife.insper-comp.com.br/api/offerings/1/exercises/"}}`);
+    </script>
+
+
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#pio-irq-rtos" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="5s - Computação Embarcada" class="md-header__button md-logo" aria-label="5s - Computação Embarcada" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            5s - Computação Embarcada
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Teoria
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/insper/ComputacaoEmbarcada" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Insper/ComputacaoEmbarcada
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="5s - Computação Embarcada" class="md-nav__button md-logo" aria-label="5s - Computação Embarcada" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    5s - Computação Embarcada
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/insper/ComputacaoEmbarcada" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Insper/ComputacaoEmbarcada
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Sobre-Curso/" class="md-nav__link">
+        Sobre o curso
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/Insper/SAME70-examples" class="md-nav__link">
+        SAME70-Examples
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Videos/Util-Videos/" class="md-nav__link">
+        Vídeos
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Dicas/Util-o-que-nao-pode/" class="md-nav__link">
+        ⚡ Regras de firmware
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Util
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Util" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Util
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Util/Sobre-Ferramental/" class="md-nav__link">
+        Ferramental
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Util/Util-Startup/" class="md-nav__link">
+        Startup
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Util/Util-Erros/" class="md-nav__link">
+        Erros comum
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Util/Util-Documentos/" class="md-nav__link">
+        Util Documentos
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Dicas/Util-lcd/" class="md-nav__link">
+        LCD max Touch
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Dicas/Util-freertos/" class="md-nav__link">
+        Freertos
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Dicas/Util-FloatPrint/" class="md-nav__link">
+        Float Print (Atmel Studio)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Dicas/Util-lvgl/" class="md-nav__link">
+        LVGL
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Labs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Labs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Labs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_1" type="checkbox" id="__nav_7_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_1">
+          Lab 1 - PIO 
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Lab 1 - PIO " data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_1">
+          <span class="md-nav__icon md-icon"></span>
+          Lab 1 - PIO 
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Lab_PIO/Lab-PIO-Teoria/" class="md-nav__link">
+        Teoria
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Lab_PIO/Lab-PIO/" class="md-nav__link">
+        Lab
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Dicas/Lab-PIO-Dicas/" class="md-nav__link">
+        Dicas
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2" type="checkbox" id="__nav_7_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2">
+          Lab 2 - PIO - Driver
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Lab 2 - PIO - Driver" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          Lab 2 - PIO - Driver
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Lab_DRIVER/Lab-PIO-DRIVER-Teoria/" class="md-nav__link">
+        Teoria
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Lab_DRIVER/Lab-PIO-DRIVER/" class="md-nav__link">
+        Lab
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Lab 3 - PIO - IRQ
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Lab 3 - PIO - IRQ" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Lab 3 - PIO - IRQ
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Lab_PIO_IRQ/Lab-PIO-IRQ-Teoria/" class="md-nav__link">
+        Teoria
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Lab_PIO_IRQ/Lab-PIO-IRQ/" class="md-nav__link">
+        Lab
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Lab_PIO_IRQ/Lab-PIO-IRQ-pratica/" class="md-nav__link">
+        Praticando
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_4" type="checkbox" id="__nav_7_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_4">
+          Lab 4 - RTOS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Lab 4 - RTOS" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          Lab 4 - RTOS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Lab-RTOS/" class="md-nav__link">
+        Lab
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Teoria
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Teoria
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tasks" class="md-nav__link">
+    Tasks
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#criando-tarefas" class="md-nav__link">
+    Criando tarefas
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#power-save-mode" class="md-nav__link">
+    Power Save mode?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comunicacao-rtos" class="md-nav__link">
+    Comunicacao RTOS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#semaphore" class="md-nav__link">
+    Semaphore
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#queues" class="md-nav__link">
+    Queues
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Lab_RTOS_HCSR04/lab/" class="md-nav__link">
+        Lab 5 - RTOS HC-SR04
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Lab_RTOS_imu/lab/" class="md-nav__link">
+        Lab 6 - RTOS IMU
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Projeto
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Projeto" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Projeto
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Projeto/Projeto-1-Descricao/" class="md-nav__link">
+        Descrição
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Projeto/Projeto-1-Dispositivos/" class="md-nav__link">
+        Dispositivos
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Projeto/Projeto-1-Entrega1/" class="md-nav__link">
+        Entrega 1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Projeto/Projeto-1-Entrega3/" class="md-nav__link">
+        Entrega 2
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Projeto/Projeto-1-Dicas/" class="md-nav__link">
+        Dicas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Projeto/vjoy/" class="md-nav__link">
+        Vjoy e pyautogui
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Projeto/Projeto-1-Lista/" class="md-nav__link">
+        Anos passados
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          APS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="APS" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          APS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9_1" type="checkbox" id="__nav_9_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9_1">
+          APS 1 - Musical
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="APS 1 - Musical" data-md-level="2">
+        <label class="md-nav__title" for="__nav_9_1">
+          <span class="md-nav__icon md-icon"></span>
+          APS 1 - Musical
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../APS/APS-1-Musical/" class="md-nav__link">
+        APS 1 - Musical
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../APS/APS-1-Musical-software/" class="md-nav__link">
+        APS 1 - Musical - Firmware
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9_2" type="checkbox" id="__nav_9_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9_2">
+          APS 2 - Ciclocomputador
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="APS 2 - Ciclocomputador" data-md-level="2">
+        <label class="md-nav__title" for="__nav_9_2">
+          <span class="md-nav__icon md-icon"></span>
+          APS 2 - Ciclocomputador
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../APS/APS-2-Bike/Descricao/" class="md-nav__link">
+        Visão geral
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../APS/APS-2-Bike/Design/" class="md-nav__link">
+        Entrega 1: Design
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../APS/APS-2-Bike/Engenharia/" class="md-nav__link">
+        Entrega 2: Engenharia
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../APS/APS-2-Bike/Rubrica/" class="md-nav__link">
+        Rubrica
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Avaliacoes_e_Simulados/Avaliacoes/" class="md-nav__link">
+        Avaliações e Simulados
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tasks" class="md-nav__link">
+    Tasks
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#criando-tarefas" class="md-nav__link">
+    Criando tarefas
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#power-save-mode" class="md-nav__link">
+    Power Save mode?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comunicacao-rtos" class="md-nav__link">
+    Comunicacao RTOS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#semaphore" class="md-nav__link">
+    Semaphore
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#queues" class="md-nav__link">
+    Queues
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+  <a href="https://github.com/Insper/ComputacaoEmbarcada/edit/master/docs-src/navigation/Labs/Lab_RTOS/Teoria.md" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+<h1 id="pio-irq-rtos">PIO-IRQ-RTOS</h1>
+<p>Vamos usar esse código exemplo para aprenderemos os principais recursos deo RTOS, nele criamos duas tasks: <code>task_but</code> e <code>task_led</code> que se comunicam via uma fila. O botão da placa é configurado para operar com interrupcão de boarda, liberando um semáforo para a <code>task_but</code>, que processa a informacão e envia um novo valor de delay para a <code>task_led</code>:</p>
+<p><img alt="" src="https://raw.githubusercontent.com/Insper/SAME70-examples/master/Perifericos-uC/RTOS-PIO-IRQ/doc/diagrama.svg"/></p>
+<div class="admonition exercise hidden" data-pageslug="navigation-Labs-Lab_RTOS-Teoria-" id="navigation-Labs-Lab_RTOS-Teoria-0">
+<p class="admonition-title">Executando</p>
+<ol>
+<li>Compile e grave o código no uC</li>
+<li>Abra o terminal e configure a UART (baudrate 115200).</li>
+<li>Veja o LED piscar! </li>
+<li>Aperte o botão da placa e veja a frequência mudar.</li>
+</ol>
+</div>
+<p>Antes de seguir analise um pouco o código e tente enteder o que está acontecendo.</p>
+<h2 id="tasks">Tasks</h2>
+<p>Tasks são pequenos programas executados pelo sistema operacional, cada tarefa possui uma stack reservada para ela e é gerenciada pelo sistema operacional. Notem que toda task é uma função que não retorna e possui laço infinito (<code>for (;;){}</code>), <mark>tasks em um RTOS não devem retornar</mark>, elas executam como se estivessem exclusividade da CPU (assim como um código bare-metal que não deve retornar da função <code>main</code>).</p>
+<p>A função <a href="https://www.freertos.org/a00127.html">vTaskDelay()</a> faz com que a tarefa fique em estado de <strong>blocked</strong> (permitindo que outras tarefas utilizem a CPU) por um determinado número de <strong>ticks</strong>. Essa função é diferente da <code>delay_ms()</code> que bloqueia a CPU para sua execução. Deve-se evitar o uso de funções de delay baseadas em "queimar" clocks na tarefas de um RTOS, já que elas agem como um trecho de código a ser executada.</p>
+<p>A função <code>vTaskDelay()</code> faz com que o RTOS libere processamento para outras tarefas durante o tempo especificado em sua chamada. Esse valor é determinado em <code>ticks</code>. Podemos traduzir ticks para <code>ms</code>, usando o define <code>portTICK_PERIOD_MS</code> como no exemplo a seguir }</p>
+<div class="highlight"><pre><span></span><code>    /* suspende por delayMs */
+    vTaskDelay(delayTicks / portTICK_PERIOD_MS);
+</code></pre></div>
+<p>O Tick de um RTOS define quantas fezes por segundo o escalonador irá executar o algoritmo de mudança de tarefas, no ARM o tick é implementado utilizando um timer do próprio CORE da ARM chamado de <code>system clock</code> ou <a href="http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dai0179b/ar01s02s08.html"><code>systick</code></a>, criado para essa função.</p>
+<p>Por exemplo, um RTOS que opera com um tick de 10ms irá decidir pelo chaveamento de suas tarefas 100 vezes por segundo, já um tick configurado para 1ms irá executar o escalonador a uma taxa de 1000 vezes por segundo. Trechos de código que necessitam executar a uma taxa maior que 1000 vezes por segundo (tick = 1ms) não devem ser implementados em tasks do RTOS mas sim via interrupção de timer.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>
+<p>O impacto do tick na função <code>vTaskDelay</code> é que a mesma só pode ser chamada com múltiplos inteiros referente ao tick.</p>
+</li>
+<li>
+<p>Não temos uma resolução tão boa quanto o TimerCounter ou RTT.</p>
+</li>
+<li>
+<p>Quanto maior a frequência de chaveamento mais vezes/segundo o OS necessita salvar e recuperar o contexto, diminuindo assim sua eficiência.</p>
+</li>
+<li>
+<p>Frequência máxima recomendada para o freertos em uma ARM e a de 1000 Hz</p>
+</li>
+</ul>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Estados de uma task</p>
+<p>A máquina de estados a seguir ilustra os possíveis estados de uma
+task assim como as transições. Para saber mais a respeito acesse:</p>
+<ul>
+<li><a href="https://www.freertos.org/RTOS-task-states.html">https://www.freertos.org/RTOS-task-states.html</a></li>
+</ul>
+<p><img alt="" src="https://www.freertos.org/fr-content-src/uploads/2018/07/tskstate.gif"/></p>
+</div>
+<div class="admonition progress hidden">
+<p class="admonition-title">Progress</p>
+<p>Continuar ...</p>
+</div>
+<h2 id="criando-tarefas">Criando tarefas</h2>
+<p>Criar uma tarefa é similar ao de inicializar um programa em um sistema operacional, mas no caso devemos indicar para o RTOS quais "funções" irão se comportar como pequenos programas (tarefas). Para isso devemos chamar a função <code>xTaskCreate</code> que possui a seguinte estrutura:</p>
+<div class="admonition info">
+<p class="admonition-title">Leitura necess[aria]</p>
+<p>Acesse e leia a documenta;áo do freertos sobre cria;áo de tasks:</p>
+<p><a href="https://www.freertos.org/a00125.html">https://www.freertos.org/a00125.html</a></p>
+</div>
+<p>A função utilizada para criar uma task no freertos é:</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * task. h</span>
+<span class="cm"> *</span>
+<span class="cm"> BaseType_t xTaskCreate(</span>
+<span class="cm">                              TaskFunction_t pvTaskCode,</span>
+<span class="cm">                              const char * const pcName,</span>
+<span class="cm">                              uint16_t usStackDepth,</span>
+<span class="cm">                              void *pvParameters,</span>
+<span class="cm">                              UBaseType_t uxPriority,</span>
+<span class="cm">                              TaskHandle_t *pvCreatedTask</span>
+<span class="cm">                          );</span>
+<span class="cm"> *</span>
+<span class="cm"> * Create a new task and add it to the list of tasks that are ready to run.</span>
+<span class="cm"> *</span>
+<span class="cm"> * xTaskCreate() can only be used to create a task that has unrestricted</span>
+<span class="cm"> * access to the entire microcontroller memory map.  Systems that include MPU</span>
+<span class="cm"> * support can alternatively create an MPU constrained task using</span>
+<span class="cm"> * xTaskCreateRestricted().</span>
+<span class="cm"> *</span>
+<span class="cm">*/</span><span class="w"></span>
+</code></pre></div>
+<p>A criação das tasks but e LED são feitas da seguinte maneira (na função <code>main</code>):</p>
+<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="cm">/* Create task to make led blink */</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">xTaskCreate</span><span class="p">(</span><span class="n">task_led</span><span class="p">,</span><span class="w"> </span><span class="s">"Led"</span><span class="p">,</span><span class="w"> </span><span class="n">TASK_LED_STACK_SIZE</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"></span>
+<span class="w">                  </span><span class="n">TASK_LED_STACK_PRIORITY</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">pdPASS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"Failed to create test led task</span><span class="se">\r\n</span><span class="s">"</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="cm">/* Create task to monitor processor activity */</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">xTaskCreate</span><span class="p">(</span><span class="n">task_but</span><span class="p">,</span><span class="w"> </span><span class="s">"BUT"</span><span class="p">,</span><span class="w"> </span><span class="n">TASK_BUT_STACK_SIZE</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"></span>
+<span class="w">                  </span><span class="n">TASK_BUT_STACK_PRIORITY</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">pdPASS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"Failed to create UartTx task</span><span class="se">\r\n</span><span class="s">"</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>O primeiro parâmetro da <code>xTaskCreate</code> é o ponteiro da função que será lidada como uma task. A segunda é o nome dessa tarefa, a terceira é o tamanho da stack que cada task vai possuir, o quarto seria um ponteiro para uma estrutura de dados que poderia ser passada para a task em sua criação, o quinto a sua prioridade e o último é um ponteiro e retorna uma variável que pode ser usada para gerencias a task (deletar, pausar).</p>
+<p>O tamanho da stack da tarefa e sua prioridade estão definidos no próprio <code>main.c</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#define TASK_LED_STACK_SIZE (1024 / sizeof(portSTACK_TYPE))</span>
+<span class="cp">#define TASK_LED_STACK_PRIORITY (tskIDLE_PRIORITY)</span>
+<span class="cp">#define TASK_BUT_STACK_SIZE (2048 / sizeof(portSTACK_TYPE))</span>
+<span class="cp">#define TASK_BUT_STACK_PRIORITY (tskIDLE_PRIORITY)</span>
+</code></pre></div>
+<p>A cada tarefa pode ser atribuída uma prioridade que vai de <strong>0</strong> até <code>configMAX_PRIORITIES - 1</code>, onde <code>configMAX_PRIORITIES</code> está definido no arquivo de configuração <code>FreeRTOSConfig.h</code>, <strong>0 é menor prioridade</strong>.</p>
+<div class="admonition info">
+<p class="admonition-title">taskIDLE_PRIORITY</p>
+<p>É a menor prioridade!</p>
+<ul>
+<li><code>#define tskIDLE_PRIORITY ( ( UBaseType_t ) 0U )</code></li>
+</ul>
+<p>Caso queira definir uma task de maior prioridade faça da seguinte maneira:</p>
+<ul>
+<li><code>#define TASK_LED_PRIORITY (taskIDLE_PRIORITY + 1)</code></li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Stack size</p>
+<p>Uma das dúvidas mais comum no uso de RTOS é o quanto de espaço devemos alocar para cada tarefa, e essa é uma pergunta que não existe um resposta correta, caso esse valor seja muito grande podemos estar alocando um espaço extra que nunca será utilizado e pode fazer falta para a aplicação. E se caso pequena, podemos ter um stack overflow e o firmware parar de funcionar. </p>
+<p>A melhor solução é a de executar o programa e analisar o consumo da stack pelas tasks ao longo de sua execução, tendo assim maiores parâmetros para a sua configuração.</p>
+<p><mark>No curso vamos usar 2048 como padrão para o stack size</mark></p>
+</div>
+<h2 id="power-save-mode">Power Save mode?</h2>
+<p>Uma forma muito simples de conseguirmos diminuir o consumo energético de um sistema embarcado com RTOS é o de ativar os modos de baixo consumo energético (powersave/ sleep mode) quando o SO estiver na tarefa <code>idle</code>. A tarefa idle é aquela executada quando nenhuma outra tarefa está em execução. Sempre que essa tarefa <code>idle</code> for chamada a o RTOS irá executar a função a seguir já definida no <code>main.c</code>: </p>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * \brief This function is called by FreeRTOS idle task</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="k">extern</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">vApplicationIdleHook</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>Note que devemos entrar em um modo de sleep que o timer utilizado pelo tick consiga ainda acordar a CPU executar, caso contrário o RTOS não irá operar corretamente já que o escalonador não será chamado. O timer usado pelo escalonador é o <a href="http://infocenter.arm.com/help/topic/com.arm.doc.dui0552a/Babieigh.html">System Timer, SysTick</a>.</p>
+<h2 id="comunicacao-rtos">Comunicacao RTOS</h2>
+<p>Uma das principais vantagens de usar um sistema operacional é o de usar ferramentas de comunicação entre tarefas ou entre ISR e tarefas, em um código baremetal fazemos esse comunicação via variáveis globais (buffers, flags, ...), essa implementação carece de funcionalidades que o RTOS irá suprir, tais como:</p>
+<ul>
+<li>
+<p>Semáforo (semaphore) É como uma flag binária, permitindo ou não a execução de uma task, funciona para sincronização de tarefas ou para exclusão mútua (multual exclusion), sem nenhum tipo de prioridade.</p>
+</li>
+<li>
+<p>Mutex: Similar aos semáforos porém com prioridade de execução (mutex alteram a prioridade da tarefa)</p>
+</li>
+<li>
+<p>MailBox ou Queues: Usado para enviar dados entre tarefas ou entre ISR e Tasks</p>
+</li>
+</ul>
+<p>[5] : <a href="https://www.freertos.org/Embedded-RTOS-Binary-Semaphores.html">https://www.freertos.org/Embedded-RTOS-Binary-Semaphores.html</a></p>
+<h2 id="semaphore">Semaphore</h2>
+<p>No nosso exemplo o semáforo serve para avisar a task_but que um botão foi apertado:</p>
+<p><img alt="Semáforo" src="../imgs/semaforo.png"/></p>
+<ul>
+<li>Consulta: <a href="https://www.freertos.org/a00124.html">xSemaphoreGiveFromISR</a></li>
+</ul>
+<p>Agora vamos modificar a função <code>task_led</code> para inicializar um semáforo, e configura
+o botão da placa OLED para funcionar com interrupção chamanado a função: <code>but1_callback</code>
+sempre que houver uma borda de descida no pino que lê o botão.</p>
+<p>A tarefa agora fica no <code>while(1)</code> aguardando o semáforo <code>xSemaphore</code> que será
+liberado pelo callback. Sempre que houver a leitura do semáforo, o mesmo torna-se
+vermelho.</p>
+<div class="admonition tip">
+<p class="admonition-title">Visão geral</p>
+<p>Para implementarmos um semáforo precisamos primeiramente definir uma variável global que será utilizada pelo sistema operacional para definir o endereço desse semáforo (global):</p>
+<div class="highlight"><pre><span></span><code><span class="n">SemaphoreHandle_t</span><span class="w"> </span><span class="n">xSemaphoreBut</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>Devemos antes de usar o semáforo, fazermos sua criação/inicialização. De preferência na main:</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/* Attempt to create a semaphore. */</span><span class="w"></span>
+<span class="n">xSemaphoreBut</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">xSemaphoreCreateBinary</span><span class="p">();</span><span class="w"></span>
+</code></pre></div>
+<p>Uma vez criado o semáforo podemos esperar a liberação do semáforo via a função:</p>
+<div class="highlight"><pre><span></span><code><span class="n">xSemaphoreTake</span><span class="p">(</span><span class="n">xSemaphoreBut</span><span class="p">,</span><span class="w"> </span><span class="n">Tick</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<ul>
+<li>xSemaphoreBut  O semáforo a ser utilizado</li>
+<li>Tick : timeout (em ticks) que a função deve liberar caso o semáforo não chegue. Se passado o valor 0, a função irá bloquear até a chegada do semáforo.</li>
+</ul>
+<p>Para liberarmos o semáforo devemos usar a função de dentro da interrupção/callback:</p>
+<div class="highlight"><pre><span></span><code><span class="n">xSemaphoreGiveFromISR</span><span class="p">(...);</span><span class="w"></span>
+</code></pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note o ISR no final da função, isso quer dizer que estamos liberando um semáforo de dentro de uma interrupção. Caso a liberação do semáforo não seja de dentro de uma interrupção, basta utilizar a função <code>xSemaphoreGive</code></p>
+</div>
+<h2 id="queues">Queues</h2>
+<p>Mailbox/ <code>queue</code> é uma das maneiras de enviarmos dados entre tarefa em um sistema operacional, com ele podemos comunicar interrupção com tarefa e tarefa com tarefa, enviando valores (diferente do semáforo que só funciona de forma binária).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Queues are the primary form of intertask communications. They can be used to send messages between tasks, and between interrupts and tasks. In most cases they are used as thread safe FIFO (First In First Out) buffers with new data being sent to the back of the queue, although data can also be sent to the front. </p>
+<p>Writing to and reading from a queue. In this example the queue was created to hold 5 items, and the queue never becomes full.</p>
+<p><img alt="" src="https://www.freertos.org/fr-content-src/uploads/2018/07/queue_animation.gif"/> </p>
+<blockquote>
+<p>Material retirado do site: <a href="https://www.freertos.org/Embedded-RTOS-Queues.html">https://www.freertos.org/Embedded-RTOS-Queues.html</a></p>
+</blockquote>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Para mais informações ler o site do freeRTOS sobre filas:</p>
+<ul>
+<li><a href="https://www.freertos.org/Embedded-RTOS-Queues.html">https://www.freertos.org/Embedded-RTOS-Queues.html</a></li>
+<li><a href="https://freertos.org/a00018.html">https://freertos.org/a00018.html</a> </li>
+</ul>
+<p>Também temos uma secção na nossa página de dicas com exemplo de fila:</p>
+<p><a href="https://insper.github.io/ComputacaoEmbarcada/Util-freertos/#fila">https://insper.github.io/ComputacaoEmbarcada/Util-freertos/#fila</a></p>
+</div>
+<p>No nosso exemplo usamos a queue para comunicar a t<code>task_but</code> com a <code>task_led</code> passando por ela o valor do delay a ser processado.</p>
+<p><img alt="Semáforo" src="../imgs/queue.png"/></p>
+<p>Uma fila pode ser de diversos tamanhos e largura, a ser definida na criacão! Isso permite o envio de mais de um dado por ela, como por exemplo um struct, ou um array.</p>
+
+
+
+
+
+                
+
+  <!-- Giscus -->
+  <h2 id="__comments">Comments</h2>
+  <!-- Replace with generated snippet -->
+    <script src="https://giscus.app/client.js"
+            data-repo="insper/ComputacaoEmbarcada"
+            data-repo-id="MDEwOlJlcG9zaXRvcnkxNjkxMjgzMjE="
+            data-category="General"
+            data-category-id="DIC_kwDOChSxgc4COBPa"
+            data-mapping="pathname"
+            data-reactions-enabled="0"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="light" 
+            data-lang="en"
+            crossorigin="anonymous"
+            async>
+    </script>
+
+  <!-- Reload on palette change -->
+  <script>
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object")
+      if (palette.color.scheme === "slate") {
+        var giscus = document.querySelector("script[src*=giscus]")
+        giscus.setAttribute("data-theme", "dark")
+
+
+      }
+
+    /* Register event handlers after documented loaded */
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate" ? "dark" : "light"
+
+          /* Instruct Giscus to change theme */
+          var frame = document.querySelector(".giscus-frame")
+          frame.contentWindow.postMessage(
+            { giscus: { setConfig: { theme } } },
+            "https://giscus.app"
+          )
+        }
+      })
+    })
+  </script>
+
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../Lab-RTOS/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Lab" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Lab
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../Lab_RTOS_HCSR04/lab/" class="md-footer__link md-footer__link--next" aria-label="Next: Lab 5 - RTOS HC-SR04" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Lab 5 - RTOS HC-SR04
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; Rafael Corsi @ insper
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["content.code.annotate"], "search": "../../../../assets/javascripts/workers/search.5bf1dace.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.078830c0.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.0.0/js-yaml.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/gh/insper-education/active-handout-plugins-js@main/package/plugin-bundle.js"></script>
+      
+    
+  </body>
+</html>

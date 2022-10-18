@@ -1,0 +1,1808 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.1, mkdocs-material-8.5.6">
+    
+    
+      
+        <title>APS 1 - Musical - Firmware - 5s - Computação Embarcada</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.20d9efc8.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/insper-education/active-handout-css@main/devlife.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed:700|Oxygen+Mono|Source+Sans+Pro:700|Source+Serif+Pro&amp;display=swap">
+<link rel="stylesheet" href="../../../assets/css/devlife.css">
+
+
+    <script>
+        window.ihandout_config = JSON.parse(`{"report": {"api-base": "https://devlife.insper-comp.com.br/api/offerings/1/", "url": "https://devlife.insper-comp.com.br/api/offerings/1/exercises/"}}`);
+    </script>
+
+
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#aps-1-musical-firmware" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="5s - Computação Embarcada" class="md-header__button md-logo" aria-label="5s - Computação Embarcada" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            5s - Computação Embarcada
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              APS 1 - Musical - Firmware
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/insper/ComputacaoEmbarcada" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Insper/ComputacaoEmbarcada
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="5s - Computação Embarcada" class="md-nav__button md-logo" aria-label="5s - Computação Embarcada" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    5s - Computação Embarcada
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/insper/ComputacaoEmbarcada" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Insper/ComputacaoEmbarcada
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Sobre-Curso/" class="md-nav__link">
+        Sobre o curso
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/Insper/SAME70-examples" class="md-nav__link">
+        SAME70-Examples
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Videos/Util-Videos/" class="md-nav__link">
+        Vídeos
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Dicas/Util-o-que-nao-pode/" class="md-nav__link">
+        ⚡ Regras de firmware
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Util
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Util" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Util
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Util/Sobre-Ferramental/" class="md-nav__link">
+        Ferramental
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Util/Util-Startup/" class="md-nav__link">
+        Startup
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Util/Util-Erros/" class="md-nav__link">
+        Erros comum
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Util/Util-Documentos/" class="md-nav__link">
+        Util Documentos
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Dicas/Util-lcd/" class="md-nav__link">
+        LCD max Touch
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Dicas/Util-freertos/" class="md-nav__link">
+        Freertos
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Dicas/Util-FloatPrint/" class="md-nav__link">
+        Float Print (Atmel Studio)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Dicas/Util-lvgl/" class="md-nav__link">
+        LVGL
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Labs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Labs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Labs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_1" type="checkbox" id="__nav_7_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_1">
+          Lab 1 - PIO 
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Lab 1 - PIO " data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_1">
+          <span class="md-nav__icon md-icon"></span>
+          Lab 1 - PIO 
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Labs/Lab_PIO/Lab-PIO-Teoria/" class="md-nav__link">
+        Teoria
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Labs/Lab_PIO/Lab-PIO/" class="md-nav__link">
+        Lab
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Dicas/Lab-PIO-Dicas/" class="md-nav__link">
+        Dicas
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2" type="checkbox" id="__nav_7_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2">
+          Lab 2 - PIO - Driver
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Lab 2 - PIO - Driver" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          Lab 2 - PIO - Driver
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Labs/Lab_DRIVER/Lab-PIO-DRIVER-Teoria/" class="md-nav__link">
+        Teoria
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Labs/Lab_DRIVER/Lab-PIO-DRIVER/" class="md-nav__link">
+        Lab
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Lab 3 - PIO - IRQ
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Lab 3 - PIO - IRQ" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Lab 3 - PIO - IRQ
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Labs/Lab_PIO_IRQ/Lab-PIO-IRQ-Teoria/" class="md-nav__link">
+        Teoria
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Labs/Lab_PIO_IRQ/Lab-PIO-IRQ/" class="md-nav__link">
+        Lab
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Labs/Lab_PIO_IRQ/Lab-PIO-IRQ-pratica/" class="md-nav__link">
+        Praticando
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_4" type="checkbox" id="__nav_7_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_4">
+          Lab 4 - RTOS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Lab 4 - RTOS" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          Lab 4 - RTOS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Labs/Lab_RTOS/Lab-RTOS/" class="md-nav__link">
+        Lab
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Labs/Lab_RTOS/Teoria/" class="md-nav__link">
+        Teoria
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Labs/Lab_RTOS_HCSR04/lab/" class="md-nav__link">
+        Lab 5 - RTOS HC-SR04
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Labs/Lab_RTOS_imu/lab/" class="md-nav__link">
+        Lab 6 - RTOS IMU
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Projeto
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Projeto" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Projeto
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Projeto/Projeto-1-Descricao/" class="md-nav__link">
+        Descrição
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Projeto/Projeto-1-Dispositivos/" class="md-nav__link">
+        Dispositivos
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Projeto/Projeto-1-Entrega1/" class="md-nav__link">
+        Entrega 1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Projeto/Projeto-1-Entrega3/" class="md-nav__link">
+        Entrega 2
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Projeto/Projeto-1-Dicas/" class="md-nav__link">
+        Dicas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Projeto/vjoy/" class="md-nav__link">
+        Vjoy e pyautogui
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Projeto/Projeto-1-Lista/" class="md-nav__link">
+        Anos passados
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          APS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="APS" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          APS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9_1" type="checkbox" id="__nav_9_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9_1">
+          APS 1 - Musical
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="APS 1 - Musical" data-md-level="2">
+        <label class="md-nav__title" for="__nav_9_1">
+          <span class="md-nav__icon md-icon"></span>
+          APS 1 - Musical
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../APS-1-Musical/" class="md-nav__link">
+        APS 1 - Musical
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          APS 1 - Musical - Firmware
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        APS 1 - Musical - Firmware
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#musicas-monofonica" class="md-nav__link">
+    Músicas monofonica
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buzzer" class="md-nav__link">
+    Buzzer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gerando-som" class="md-nav__link">
+    Gerando som
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#musica" class="md-nav__link">
+    Música
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencia" class="md-nav__link">
+    Referência
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#analisando-firmware" class="md-nav__link">
+    Analisando firmware
+  </a>
+  
+    <nav class="md-nav" aria-label="Analisando firmware">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#notas" class="md-nav__link">
+    Notas
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#musica_1" class="md-nav__link">
+    Música
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tempo" class="md-nav__link">
+    Tempo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reproduzindo" class="md-nav__link">
+    Reproduzindo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tone" class="md-nav__link">
+    tone
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9_2" type="checkbox" id="__nav_9_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9_2">
+          APS 2 - Ciclocomputador
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="APS 2 - Ciclocomputador" data-md-level="2">
+        <label class="md-nav__title" for="__nav_9_2">
+          <span class="md-nav__icon md-icon"></span>
+          APS 2 - Ciclocomputador
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../APS-2-Bike/Descricao/" class="md-nav__link">
+        Visão geral
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../APS-2-Bike/Design/" class="md-nav__link">
+        Entrega 1: Design
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../APS-2-Bike/Engenharia/" class="md-nav__link">
+        Entrega 2: Engenharia
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../APS-2-Bike/Rubrica/" class="md-nav__link">
+        Rubrica
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Avaliacoes_e_Simulados/Avaliacoes/" class="md-nav__link">
+        Avaliações e Simulados
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#musicas-monofonica" class="md-nav__link">
+    Músicas monofonica
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buzzer" class="md-nav__link">
+    Buzzer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gerando-som" class="md-nav__link">
+    Gerando som
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#musica" class="md-nav__link">
+    Música
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencia" class="md-nav__link">
+    Referência
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#analisando-firmware" class="md-nav__link">
+    Analisando firmware
+  </a>
+  
+    <nav class="md-nav" aria-label="Analisando firmware">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#notas" class="md-nav__link">
+    Notas
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#musica_1" class="md-nav__link">
+    Música
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tempo" class="md-nav__link">
+    Tempo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reproduzindo" class="md-nav__link">
+    Reproduzindo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tone" class="md-nav__link">
+    tone
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+  <a href="https://github.com/Insper/ComputacaoEmbarcada/edit/master/docs-src/navigation/APS/APS-1-Musical-software.md" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+<h1 id="aps-1-musical-firmware">APS 1 - Musical - Firmware</h1>
+<p>A seguir iremos explicar os conceitos e dicas de como vocês deverem prosseguir para
+executarem esta APS.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<ol>
+<li>
+<p>Lembrem de trabalhar no repositório criado pelo classroom:</p>
+<ul>
+<li><a href="https://classroom.github.com/a/myFZ2tpa">https://classroom.github.com/a/myFZ2tpa</a></li>
+</ul>
+</li>
+<li>
+<p>Leia atentamente como trabalhar no repositório:</p>
+<ul>
+<li><a href="/ComputacaoEmbarcada/APS-howto/">APS HowTo</a></li>
+</ul>
+</li>
+</ol>
+</div>
+<h2 id="musicas-monofonica">Músicas monofonica</h2>
+<p>Músicas monofonicas<a href="https://en.wikipedia.org/wiki/Monophony">^1</a> são aquelas que só possuem uma única nota tocada por vez, como indicado na partitura a seguir:</p>
+<p><img alt="" src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Pop_Goes_the_Weasel_updated.png" width="400"/></p>
+<blockquote>
+<p>ref: wikipidia</p>
+</blockquote>
+<p>A música monofonica tem o som como a seguir:</p>
+<figure>
+<figcaption>Pop Goes the Weasel.ogg (wiki)</figcaption>
+<audio controls="" src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Pop_Goes_the_Weasel.ogg">
+            Your browser does not support the
+            <code>audio</code> element.
+    </audio>
+</figure>
+<p>Esse tipo de música foi muito utilizada nos primeiros videogames, quando a sintetização de músicas ainda estava no começo.  Veja como era feito nos Nintendo, aqui já era possível gerar mais de um tom por vez:</p>
+<iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0" height="320" src="https://www.youtube.com/embed/jvIzIAgRWV0" width="520"></iframe>
+<h2 id="buzzer">Buzzer</h2>
+<p>Para gerarmos o som é necessário termos algum dispositivo capaz de gerar movimentação no ar, o buzzer é um dispositivo simples que a partir de uma bobina (controlada por um terminal) conseguimos movimentar um disco que por sua vez movimentar o ar. Os buzzers podem ser de duas categorias (piezoelétricos):</p>
+<ul>
+<li><strong>Ativo:</strong> basta energizar o terminal que o dispositivo vibra automaticamente em uma determinada frequência, muito usado para alarmes.</li>
+<li><strong>Passivo:</strong> Um circuito externo (ou microcontrolador) deve gerar a frequência de vibração, usado para gerar som.</li>
+</ul>
+<p>Buzzers são diferentes de altofalantes<a href="https://en.wikipedia.org/wiki/Loudspeaker">^2</a> em vários aspectos (mecânico, eletromecânico): não necessitam de tensão negativa; possuem um espectro de operação menor; baixa resistência; baixa potência ... .</p>
+<p>A conexão do buzzer com um microcontrolador se da por dois pinos: Um conectado no terra (gnd) e outro conectado
+em um pino que o microcontrolador possui controle, conforme ilustração a seguir:</p>
+<p><img alt="image" src="https://user-images.githubusercontent.com/1039615/109496798-e660e380-7a6f-11eb-831d-604cce45f5f6.png" width="500"/></p>
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0" height="315" src="https://www.youtube.com/embed/77h1JhD9Syw" width="560"></iframe>
+<h2 id="gerando-som">Gerando som</h2>
+<p>Podemos fazer com que o buzzer oscile em uma determinada frequência, para isso basta gerarmos um sinal de onda quadrada  no terminal positivo do dispositivo, isso irá fazer com que o piezo movimente na mesma frequência, gerando o tom desejado.</p>
+<div class="admonition tip">
+<p class="admonition-title">Notas</p>
+<p>As notas musicais são definidas pela frequência principal que elas emitem, um Dó-4 é definido por 262 Hz, um Lá-4 por 440Hz e assim por diante (o 4 se refere ao meio do piano). Além da frequência principal, cada instrumento musical emite outras frequências que compõem o som, gerando um som único para cada instrumento.</p>
+<p>Iremos usar a notacao americana para as notas:</p>
+<table>
+<thead>
+<tr>
+<th>Dó</th>
+<th>Ré</th>
+<th>Mi</th>
+<th>Fá</th>
+<th>Sol</th>
+<th>Lá</th>
+<th>Sí</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>D</td>
+<td>E</td>
+<td>F</td>
+<td>G</td>
+<td>A</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Frequency_vs_name.svg/350px-Frequency_vs_name.svg.png"/></p>
+<blockquote>
+<p>Ref: <a href="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Frequency_vs_name.svg/350px-Frequency_vs_name.svg.png">https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Frequency_vs_name.svg/350px-Frequency_vs_name.svg.png</a> Wikipidia </p>
+</blockquote>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Frequências</p>
+<p>Lembre que uma onda quadrada pode ser decomposta em infinitas senoides pela transformada de Fourier. </p>
+<p><img alt="" src="https://mathworld.wolfram.com/images/eps-gif/FourierSeriesSquareWave_800.gif" width="300"/></p>
+<p>Sendo a componente principal (de maior energia) centrada na frequência da onda quadrada (no nosso caso):</p>
+<p><img alt="" src="https://mathworld.wolfram.com/images/equations/FourierSeriesSquareWave/NumberedEquation3.gif"/></p>
+<p>Portanto o som que iremos escutar será composto da frequência principal mais as harmónicas.</p>
+<blockquote>
+<p>ref: <a href="https://mathworld.wolfram.com/images/eps-gif/FourierSeriesSquareWave_800.gif">https://mathworld.wolfram.com/images/eps-gif/FourierSeriesSquareWave_800.gif</a></p>
+</blockquote>
+<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0" height="315" src="https://www.youtube.com/embed/3IAMpH4xF9Q" width="560"></iframe></p>
+</div>
+<p>Existem diversas maneiras de gerarmos uma onda quadrada em um pino do microcontrolador, a que estamos sugerindo aqui não envolve nenhum periférico específico do microcontrolador, logo iremos fazer tudo por código.</p>
+<p>Por exemplo, para gerar uma onda quadrada de 1000 Hz:</p>
+<div class="highlight"><pre><span></span><code><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="n">pio_set</span><span class="p">(...);</span><span class="w"></span>
+<span class="w">    </span><span class="n">delay_us</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">pio_clear</span><span class="p">(...);</span><span class="w"></span>
+<span class="w">    </span><span class="n">delay_us</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Tudo depende do microcontrolador, mas podemos gerar uma onda quadrada com os periféricos: PWM, TimerCounter. As vantagens de fazermos isso são:</p>
+<ul>
+<li>Não inutilizamos o CORE com as funcoes de delay</li>
+<li>Conseguimos facilmente ter mais de uma frequência gerada.</li>
+<li>Menor gasto energético</li>
+</ul>
+</div>
+<h2 id="musica">Música</h2>
+<p>Eu fiz por anos aula de sax alto e meu professor falava que para começar a tocar uma música bastava: <code>tocar a nota certa no momento certo e não tocar quando não for para tocar</code>, para quem tem prática é fácil, mas para mim não era. Trouxe este assunto para explicar um pouco como iremos reproduzir uma música. Cada música será formada por notas (frequências), pela duração da nota e por um silêncio entre notas (que também tem duração ). Toda essa informação está presente na partitura:</p>
+<p><img alt="" src="https://cdn.statically.io/img/www.musicnotes.com/now/wp-content/uploads/2018/02/4.png?quality=80&amp;f=auto"/></p>
+<blockquote>
+<p>ref: <a href="https://www.musicnotes.com/now/tips/how-to-read-sheet-music/">https://www.musicnotes.com/now/tips/how-to-read-sheet-music/</a></p>
+</blockquote>
+<p>Portanto para reproduzirmos uma música teremos que para cada intervalo de tempo:</p>
+<ol>
+<li>Reproduzir uma nota (gerar a frequência da nota no pino do buzzer) ou não tocar nada (pausa)</li>
+<li>Manter a nota/pausa pelo tempo determinado</li>
+<li>Ir para o próximo intervalo de tempo</li>
+</ol>
+<h2 id="referencia">Referência</h2>
+<p>Nesta APS é para utilizarem as músicas fornecidas no repositório a seguir: </p>
+<ul>
+<li><a href="https://github.com/robsoncouto/arduino-songs">https://github.com/robsoncouto/arduino-songs</a></li>
+</ul>
+<blockquote>
+<p>Fornecido por:  Robson Couto, 2019</p>
+</blockquote>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Os exemplos deste repositório só funcionam em Arduino, não conseguimos usar de maneira direta no nosso kit de desenvolvimento.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Lembre de referenciar o repositório quando utilizar as músicas por ele fornecido. Como descrito no próprio README.</p>
+<blockquote>
+<p>Every sketch here has been written by myself, although based on scores I found online or books I own. These scores are linked in each file when possible. You can use the sketches for anything, I only kindly ask that you give credit if you use these codes on a tutorial, video, example, etc.</p>
+</blockquote>
+</div>
+<h2 id="analisando-firmware">Analisando firmware</h2>
+<p>O desenvolvedor disponibiliza diversas músicas de vários temas diferentes: Filmes, Jogos, Clássicas, ... . Vamos analisar como as músicas são disponibilizadas. Para isso iremos pegar como exemplo a música tema do Mário:</p>
+<ul>
+<li><a href="https://github.com/robsoncouto/arduino-songs/blob/master/supermariobros/supermariobros.ino">https://github.com/robsoncouto/arduino-songs/blob/master/supermariobros/supermariobros.ino</a></li>
+</ul>
+<h3 id="notas">Notas</h3>
+<p>No comece do arquivo temos as definições das notas:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#define NOTE_B0  31</span>
+<span class="cp">#define NOTE_C1  33</span>
+<span class="cp">#define NOTE_CS1 35</span>
+<span class="cp">#define NOTE_D1  37</span>
+<span class="cp">#define NOTE_DS1 39</span>
+<span class="cp">#define NOTE_E1  41</span>
+<span class="cp">#define NOTE_F1  44</span>
+<span class="cp">#define NOTE_FS1 46</span>
+<span class="cp">#define NOTE_G1  49</span>
+<span class="cp">#define NOTE_GS1 52</span>
+<span class="cp">#define NOTE_A1  55</span>
+</code></pre></div>
+<h3 id="musica_1">Música</h3>
+<p>No arquivo disponível um vetor chamado <code>melody</code> que possui nos index pares (<code>0</code>, <code>2</code>, ...) as notas e nos index ímpares ( <code>1</code>, <code>3</code>, ... ) o tempo de furacão da nota (com base em uma referência).</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// notes of the moledy followed by the duration.</span>
+<span class="c1">// a 4 means a quarter note, 8 an eighteenth , 16 sixteenth, so on</span>
+<span class="c1">// !!negative numbers are used to represent dotted notes,</span>
+<span class="c1">// so -4 means a dotted quarter note, that is, a quarter plus an eighteenth!!</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">melody</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// Super Mario Bros theme</span>
+<span class="w">  </span><span class="c1">// Score available at https://musescore.com/user/2123/scores/2145</span>
+<span class="w">  </span><span class="c1">// Theme by Koji Kondo</span>
+
+
+<span class="w">  </span><span class="n">NOTE_E5</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="n">NOTE_E5</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="n">REST</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="n">NOTE_E5</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="n">REST</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="n">NOTE_C5</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="n">NOTE_E5</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="c1">//1</span>
+<span class="w">  </span><span class="n">NOTE_G5</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="n">REST</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="n">NOTE_G4</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="n">REST</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span>
+<span class="w">  </span><span class="n">NOTE_C5</span><span class="p">,</span><span class="mi">-4</span><span class="p">,</span><span class="w"> </span><span class="n">NOTE_G4</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="n">REST</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="n">NOTE_E4</span><span class="p">,</span><span class="mi">-4</span><span class="p">,</span><span class="w"> </span><span class="c1">// 3</span>
+<span class="w">  </span><span class="n">NOTE_A4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="n">NOTE_B4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="n">NOTE_AS4</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="n">NOTE_A4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="w"></span>
+</code></pre></div>
+<h3 id="tempo">Tempo</h3>
+<p>Os tempos são definidos em partes de uma <strong>Semibreve/wholenote</strong><a href="https://pt.wikipedia.org/wiki/Semibreve">^3</a>  (que é a nota de maior duração), ou seja, o valor 4 refere-se a $¼$ da semibreve, 8 a $⅛$ do tempo total... .</p>
+<p>O valor da semibreve/wholenote é definida no próprio código:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// change this to make the song slower or faster</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">tempo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">200</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">// hide code</span>
+<span class="c1">// ....</span>
+
+<span class="c1">// this calculates the duration of a whole note in ms</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">wholenote</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">60000</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">tempo</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>Valores negativos de tempo (<strong>-4</strong>, <strong>-8</strong>, ... ) representam que a nota tem a duração dela mais meio tempo.  </p>
+<p>No código do repositório, ele implementa o cálculo da duracão da nota da seguinte maneira:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// calculates the duration of each note</span>
+<span class="n">divider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">melody</span><span class="p">[</span><span class="n">thisNote</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">divider</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// regular note, just proceed</span>
+<span class="w">    </span><span class="n">noteDuration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">wholenote</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">divider</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">divider</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// dotted notes are represented with negative durations!!</span>
+<span class="w">    </span><span class="n">noteDuration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">wholenote</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">abs</span><span class="p">(</span><span class="n">divider</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">noteDuration</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="mf">1.5</span><span class="p">;</span><span class="w"> </span><span class="c1">// increases the duration in half for dotted notes</span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<ul>
+<li><code>thisNote</code> é o index da nota atual.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Eu reescreveria este trecho de código da seguinte maneira, com o objetivo
+de ficar mais simples e compacto:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// calculates the duration of each note</span>
+<span class="n">divider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">melody</span><span class="p">[</span><span class="n">thisNote</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
+<span class="n">noteDuration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">wholenote</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">abs</span><span class="p">(</span><span class="n">divider</span><span class="p">);</span><span class="w"></span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">divider</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">noteDuration</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="mf">1.5</span><span class="p">;</span><span class="w"> </span><span class="c1">// increases the duration in half for dotted notes</span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+</div>
+<h3 id="reproduzindo">Reproduzindo</h3>
+<p>Agora já temos tudo para reproduzir a música, precisamos varrer o vetor <code>melody</code> e para cada nota (index par) gerar a onda quadrada no pino pelo tempo determinado em: <code>noteDuration</code>, para isso definem o tamanho do vetor:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// sizeof gives the number of bytes, each int value is composed of two bytes (16 bits)</span>
+<span class="c1">// there are two values per note (pitch and duration), so for each note there are four bytes</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">notes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">melody</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">melody</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">C: tipos</p>
+<p>A linguagem C opera com tipos de dados multiplos de um byte (8 bits), e possui
+duas maneiras de indicar o tipo da variável:</p>
+<table>
+<thead>
+<tr>
+<th>byte</th>
+<th>half word</th>
+<th>word</th>
+<th>duble word</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>char</code></td>
+<td><code>short</code></td>
+<td><code>int</code></td>
+<td><code>long</code></td>
+</tr>
+<tr>
+<td><code>int8_t</code></td>
+<td><code>int16_t</code></td>
+<td><code>int32_t</code></td>
+<td><code>int64_t</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition info">
+<p class="admonition-title">C: sizeof</p>
+<p><code>sizeof(type)</code> recebe como parâmetro um tipo (pode ser uma variável, vetor ou struct) e retorna <strong>quantos bytes</strong> o tipo ocupa! Veja os exemplos a seguir: </p>
+<div class="highlight"><pre><span></span><code><span class="kt">uint32_t</span><span class="w"> </span><span class="n">foo</span><span class="p">;</span><span class="w"></span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"Tamanho foo em bytes: %d </span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">foo</span><span class="p">));</span><span class="w"></span>
+<span class="c1">// $ Tamanho foo em bytes: 4</span>
+
+<span class="kt">uint32_t</span><span class="w"> </span><span class="n">bar</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span><span class="w"></span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"Tamanho bar em bytes: %d </span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">bar</span><span class="p">))</span><span class="w"></span>
+<span class="c1">// $ Tamanho bar em bytes: 8</span>
+</code></pre></div>
+<p>Note que a variável <code>foo</code> ocupa <strong>4 bytes</strong> (pois é um inteiro: $32/8=4$) e o vetor
+<code>bar</code> ocupa <strong>8 bytes</strong>, pois aloca dois enderecos de memória do tipo int.</p>
+<p>O <code>sizeof</code> é executado em tempo de compilação, não podemos usar para memórias
+alocadas dinâmicamente:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// não podemos fazer isso!</span>
+<span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">foo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="mi">32</span><span class="p">);</span><span class="w"></span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"Tamanho bar em bytes: %d </span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">foo</span><span class="p">))</span><span class="w"></span>
+</code></pre></div>
+</div>
+<p>E então interage no vetor e reproduz a nota usando a função <code>tone</code></p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="c1">// iterate over the notes of the melody.</span>
+<span class="w">  </span><span class="c1">// Remember, the array is twice the number of notes (notes + durations)</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">thisNote</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">thisNote</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">notes</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="n">thisNote</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">thisNote</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// calculates the duration of each note</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="c1">// ... hide</span>
+
+<span class="w">    </span><span class="c1">// we only play the note for 90% of the duration, leaving 10% as a pause</span>
+<span class="w">    </span><span class="n">tone</span><span class="p">(</span><span class="n">buzzer</span><span class="p">,</span><span class="w"> </span><span class="n">melody</span><span class="p">[</span><span class="n">thisNote</span><span class="p">],</span><span class="w"> </span><span class="n">noteDuration</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.9</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Wait for the specief duration before playing the next note.</span>
+<span class="w">    </span><span class="n">delay</span><span class="p">(</span><span class="n">noteDuration</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// stop the waveform generation before the next note.</span>
+<span class="w">    </span><span class="n">noTone</span><span class="p">(</span><span class="n">buzzer</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>A função <code>tone</code> do Arduino gera uma onda quadrada em um pino (<code>buzzer</code>), de frequência <code>melody[thisNote]</code> e duração <code>noteDuration * 0.9</code>. </p>
+<div class="admonition tip">
+<p class="admonition-title">tone</p>
+<p>Vocês vão ter que implementar uma função  <code>tone</code> própria!</p>
+</div>
+<h3 id="tone"><code>tone</code></h3>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Apenas uma sugestão de como implementar.</p>
+</div>
+<p>Sugerimos implementarem uma função que receba como parâmetro uma frequência e um tempo (em milissegundos) e que reproduza uma onda quadrada em um pino do microcontrolador, na frequência e tempo passado como argumento para a função.</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * freq: Frequecia em Hz</span>
+<span class="cm"> * time: Tempo em ms que o tom deve ser gerado</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">tone</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">freq</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">time</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="p">....</span><span class="w"></span>
+<span class="w">    </span><span class="p">....</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Como fazer? O melhor jeito é contar quantos pulsos (freq) existem dentro de um tempo (time) e então
+fazer um loop que gere a quantidade de pulsos (na frequência certa).</p>
+</div>
+
+
+
+
+
+                
+
+  <!-- Giscus -->
+  <h2 id="__comments">Comments</h2>
+  <!-- Replace with generated snippet -->
+    <script src="https://giscus.app/client.js"
+            data-repo="insper/ComputacaoEmbarcada"
+            data-repo-id="MDEwOlJlcG9zaXRvcnkxNjkxMjgzMjE="
+            data-category="General"
+            data-category-id="DIC_kwDOChSxgc4COBPa"
+            data-mapping="pathname"
+            data-reactions-enabled="0"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="light" 
+            data-lang="en"
+            crossorigin="anonymous"
+            async>
+    </script>
+
+  <!-- Reload on palette change -->
+  <script>
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object")
+      if (palette.color.scheme === "slate") {
+        var giscus = document.querySelector("script[src*=giscus]")
+        giscus.setAttribute("data-theme", "dark")
+
+
+      }
+
+    /* Register event handlers after documented loaded */
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate" ? "dark" : "light"
+
+          /* Instruct Giscus to change theme */
+          var frame = document.querySelector(".giscus-frame")
+          frame.contentWindow.postMessage(
+            { giscus: { setConfig: { theme } } },
+            "https://giscus.app"
+          )
+        }
+      })
+    })
+  </script>
+
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../APS-1-Musical/" class="md-footer__link md-footer__link--prev" aria-label="Previous: APS 1 - Musical" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              APS 1 - Musical
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../APS-2-Bike/Descricao/" class="md-footer__link md-footer__link--next" aria-label="Next: Visão geral" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Visão geral
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; Rafael Corsi @ insper
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.annotate"], "search": "../../../assets/javascripts/workers/search.5bf1dace.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.078830c0.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.0.0/js-yaml.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/gh/insper-education/active-handout-plugins-js@main/package/plugin-bundle.js"></script>
+      
+    
+  </body>
+</html>

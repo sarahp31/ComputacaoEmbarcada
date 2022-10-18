@@ -1,0 +1,1519 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.1, mkdocs-material-8.5.6">
+    
+    
+      
+        <title>LAB - Mutex - 5s - Computação Embarcada</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.20d9efc8.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/insper-education/active-handout-css@main/devlife.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed:700|Oxygen+Mono|Source+Sans+Pro:700|Source+Serif+Pro&amp;display=swap">
+<link rel="stylesheet" href="../../../../assets/css/devlife.css">
+
+
+    <script>
+        window.ihandout_config = JSON.parse(`{"report": {"api-base": "https://devlife.insper-comp.com.br/api/offerings/1/", "url": "https://devlife.insper-comp.com.br/api/offerings/1/exercises/"}}`);
+    </script>
+
+
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lab-mutex" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="5s - Computação Embarcada" class="md-header__button md-logo" aria-label="5s - Computação Embarcada" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            5s - Computação Embarcada
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              LAB - Mutex
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/insper/ComputacaoEmbarcada" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Insper/ComputacaoEmbarcada
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="5s - Computação Embarcada" class="md-nav__button md-logo" aria-label="5s - Computação Embarcada" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    5s - Computação Embarcada
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/insper/ComputacaoEmbarcada" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Insper/ComputacaoEmbarcada
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Sobre-Curso/" class="md-nav__link">
+        Sobre o curso
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/Insper/SAME70-examples" class="md-nav__link">
+        SAME70-Examples
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Videos/Util-Videos/" class="md-nav__link">
+        Vídeos
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Dicas/Util-o-que-nao-pode/" class="md-nav__link">
+        ⚡ Regras de firmware
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Util
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Util" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Util
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Util/Sobre-Ferramental/" class="md-nav__link">
+        Ferramental
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Util/Util-Startup/" class="md-nav__link">
+        Startup
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Util/Util-Erros/" class="md-nav__link">
+        Erros comum
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Util/Util-Documentos/" class="md-nav__link">
+        Util Documentos
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Dicas/Util-lcd/" class="md-nav__link">
+        LCD max Touch
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Dicas/Util-freertos/" class="md-nav__link">
+        Freertos
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Dicas/Util-FloatPrint/" class="md-nav__link">
+        Float Print (Atmel Studio)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Dicas/Util-lvgl/" class="md-nav__link">
+        LVGL
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Labs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Labs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Labs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_1" type="checkbox" id="__nav_7_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_1">
+          Lab 1 - PIO 
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Lab 1 - PIO " data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_1">
+          <span class="md-nav__icon md-icon"></span>
+          Lab 1 - PIO 
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Lab_PIO/Lab-PIO-Teoria/" class="md-nav__link">
+        Teoria
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Lab_PIO/Lab-PIO/" class="md-nav__link">
+        Lab
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Dicas/Lab-PIO-Dicas/" class="md-nav__link">
+        Dicas
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2" type="checkbox" id="__nav_7_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2">
+          Lab 2 - PIO - Driver
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Lab 2 - PIO - Driver" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          Lab 2 - PIO - Driver
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Lab_DRIVER/Lab-PIO-DRIVER-Teoria/" class="md-nav__link">
+        Teoria
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Lab_DRIVER/Lab-PIO-DRIVER/" class="md-nav__link">
+        Lab
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Lab 3 - PIO - IRQ
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Lab 3 - PIO - IRQ" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Lab 3 - PIO - IRQ
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Lab_PIO_IRQ/Lab-PIO-IRQ-Teoria/" class="md-nav__link">
+        Teoria
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Lab_PIO_IRQ/Lab-PIO-IRQ/" class="md-nav__link">
+        Lab
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Lab_PIO_IRQ/Lab-PIO-IRQ-pratica/" class="md-nav__link">
+        Praticando
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_4" type="checkbox" id="__nav_7_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_4">
+          Lab 4 - RTOS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Lab 4 - RTOS" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          Lab 4 - RTOS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Lab_RTOS/Lab-RTOS/" class="md-nav__link">
+        Lab
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Lab_RTOS/Teoria/" class="md-nav__link">
+        Teoria
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Lab_RTOS_HCSR04/lab/" class="md-nav__link">
+        Lab 5 - RTOS HC-SR04
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Lab_RTOS_imu/lab/" class="md-nav__link">
+        Lab 6 - RTOS IMU
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Projeto
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Projeto" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Projeto
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Projeto/Projeto-1-Descricao/" class="md-nav__link">
+        Descrição
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Projeto/Projeto-1-Dispositivos/" class="md-nav__link">
+        Dispositivos
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Projeto/Projeto-1-Entrega1/" class="md-nav__link">
+        Entrega 1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Projeto/Projeto-1-Entrega3/" class="md-nav__link">
+        Entrega 2
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Projeto/Projeto-1-Dicas/" class="md-nav__link">
+        Dicas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Projeto/vjoy/" class="md-nav__link">
+        Vjoy e pyautogui
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Projeto/Projeto-1-Lista/" class="md-nav__link">
+        Anos passados
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          APS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="APS" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          APS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9_1" type="checkbox" id="__nav_9_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9_1">
+          APS 1 - Musical
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="APS 1 - Musical" data-md-level="2">
+        <label class="md-nav__title" for="__nav_9_1">
+          <span class="md-nav__icon md-icon"></span>
+          APS 1 - Musical
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../APS/APS-1-Musical/" class="md-nav__link">
+        APS 1 - Musical
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../APS/APS-1-Musical-software/" class="md-nav__link">
+        APS 1 - Musical - Firmware
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9_2" type="checkbox" id="__nav_9_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9_2">
+          APS 2 - Ciclocomputador
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="APS 2 - Ciclocomputador" data-md-level="2">
+        <label class="md-nav__title" for="__nav_9_2">
+          <span class="md-nav__icon md-icon"></span>
+          APS 2 - Ciclocomputador
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../APS/APS-2-Bike/Descricao/" class="md-nav__link">
+        Visão geral
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../APS/APS-2-Bike/Design/" class="md-nav__link">
+        Entrega 1: Design
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../APS/APS-2-Bike/Engenharia/" class="md-nav__link">
+        Entrega 2: Engenharia
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../APS/APS-2-Bike/Rubrica/" class="md-nav__link">
+        Rubrica
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Avaliacoes_e_Simulados/Avaliacoes/" class="md-nav__link">
+        Avaliações e Simulados
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#lab" class="md-nav__link">
+    Lab
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mutexes" class="md-nav__link">
+    Mutexes
+  </a>
+  
+    <nav class="md-nav" aria-label="Mutexes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prioridades-e-mutex" class="md-nav__link">
+    Prioridades e Mutex
+  </a>
+  
+    <nav class="md-nav" aria-label="Prioridades e Mutex">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inversao-de-prioridade" class="md-nav__link">
+    Inversão de prioridade
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mutex-no-freertos" class="md-nav__link">
+    mutex no freeRtos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exemplo" class="md-nav__link">
+    Exemplo
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#programando" class="md-nav__link">
+    Programando
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aps-2" class="md-nav__link">
+    APS 2
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+  <a href="https://github.com/Insper/ComputacaoEmbarcada/edit/master/docs-src/navigation/Labs/Lab_mutex/lab.md" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+<h1 id="lab-mutex">LAB - Mutex</h1>
+<p>Neste laboratório iremos trabalhar usar mutex no freertos para controlar o acesso ao LVGL entre múltiplas tasks. </p>
+<h2 id="lab">Lab</h2>
+<table>
+<thead>
+<tr>
+<th>Exemplo base</th>
+<th></th>
+<th>LAB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Lab7-RTOS-LCD-LVGL</code></td>
+<td><img alt="➡️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/svg/27a1.svg" title=":arrow_right:"/></td>
+<td><code>Lab8-RTOS-Mutex</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Código exemplo</p>
+<ul>
+<li>Vamos modificar o código exemplo do laboratório passado, tudo bem se você não terminou de implementar todas as funcionalidades. Faça uma cópia para o seu repositório de laboratórios renomeando para <code>Labs8-RTOS-Mutex</code>.</li>
+</ul>
+</div>
+<h2 id="mutexes">Mutexes</h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Sim... sim.. o mesmo mutex de sistema hardware software (<code>lock</code> e <code>unlock</code>): <a href="https://insper.github.io/SistemasHardwareSoftware/aulas/20-sincronizacao/">https://insper.github.io/SistemasHardwareSoftware/aulas/20-sincronizacao/</a></p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Mutex vem de 'MUT'ual 'EX'clusion ou exclusão mútua, a ideia é para ser usado como um bastão, que indica que o recurso está em uso por outra parte do programa.</p>
+</div>
+<p>O LVGL <strong>não é thread-safe by default</strong>, como indicado na página:</p>
+<ul>
+<li><a href="https://docs.lvgl.io/master/porting/os.html">https://docs.lvgl.io/master/porting/os.html</a></li>
+</ul>
+<p>Isso significa que não podemos chamar uma função do LVGL enquanto a anterior não tiver terminado de executar, e caso implementemos o acesso ao LCD em várias partes do nosso programa corremos grande risco disso acontecer (lembrem que o RTOS interrompe uma tarefa para permitir que outra execute, e isso pode ser no meio da função por exemplo de mudar o valor do label).</p>
+<p>A documentação do LVGL fala o seguinte:</p>
+<blockquote>
+<p>If you need to use real tasks or threads, you need a mutex which should be invoked before the call of <code>lv_timer_handler</code> and released after it. Also, you have to use the same mutex in other tasks and threads around every LVGL (<code>lv_...</code>) related function call and code. This way you can use LVGL in a real multitasking environment. Just make use of a mutex to avoid the concurrent calling of LVGL functions.</p>
+<p>Here is some pseudocode to illustrate the concept:
+  <div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="n">mutex_t</span><span class="w"> </span><span class="n">lvgl_mutex</span><span class="p">;</span><span class="w"> </span><span class="c1">// (1)</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">lvgl_thread</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lvgl_mutex</span><span class="p">);</span><span class="w"> </span><span class="c1">// (2)</span>
+<span class="w">        </span><span class="n">lv_task_handler</span><span class="p">();</span><span class="w"></span>
+<span class="w">        </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lvgl_mutex</span><span class="p">);</span><span class="w"> </span><span class="c1">// (3)</span>
+<span class="w">        </span><span class="n">thread_sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span><span class="w"> </span><span class="cm">/* sleep for 10 ms */</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">other_thread</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="cm">/* You must always hold the mutex while using LVGL APIs */</span><span class="w"></span>
+<span class="w">    </span><span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lvgl_mutex</span><span class="p">);</span><span class="w"> </span>
+<span class="w">    </span><span class="n">lv_obj_t</span><span class="w"> </span><span class="o">*</span><span class="n">img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lv_img_create</span><span class="p">(</span><span class="n">lv_scr_act</span><span class="p">());</span><span class="w"></span>
+<span class="w">    </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lvgl_mutex</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lvgl_mutex</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="cm">/* change to the next image */</span><span class="w"></span>
+<span class="w">        </span><span class="n">lv_img_set_src</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="w"> </span><span class="n">next_image</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lvgl_mutex</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">thread_sleep</span><span class="p">(</span><span class="mi">2000</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div></p>
+<ol>
+<li>Cria mutex, vamos ter que usar o do freertos</li>
+<li>Indica que o recurso está em uso</li>
+<li>Indica a liberacão do recurso</li>
+</ol>
+</blockquote>
+<h3 id="prioridades-e-mutex">Prioridades e Mutex</h3>
+<p>Imaginem o cenário a seguir: Uma tarefa de baixa prioridade (L) requisita um mutex que está livre, no meio da execução uma tarefa de alta prioridade (H) é colocada para executar pelo escalonador e está tarefa necessita do mesmo mutex que a anterior. O que acontece? <mark>Pânico no sistema</mark> tudo trava? Não! O escalonador vai permitir que a de baixa execute e a de alta não vai executar pois está esperando o mutex. Isso chama <mark>inversão de prioridade</mark>.</p>
+<h4 id="inversao-de-prioridade">Inversão de prioridade</h4>
+<p>Inversão de prioridade é uma "consequência" que acontece quando uma tarefa de alta prioridade está aguardando um recurso que não foi liberado por uma tarefa de menor prioridade, o RTOS vai manter a tarefa de baixa prioridade executando, impedindo a de alta de executar (o que não é muito desejado). O negócio começa a ficar mais complicado quando incluímos uma tarefa de média prioridade na jogada, que pode impedir a de baixa e a de alta de executar, travando o sistema:</p>
+<p><img alt="" src="https://www.digikey.com.br/maker-media/92b5e015-d9fc-4940-9a48-f814d06c5f31"/></p>
+<ul>
+<li>Acesse o link a seguir para entender mais a respeito:  <a href="https://www.digikey.com.br/en/maker/projects/introduction-to-rtos-solution-to-part-11-priority-inversion/abf4b8f7cd4a4c70bece35678d178321">https://www.digikey.com.br/en/maker/projects/introduction-to-rtos-solution-to-part-11-priority-inversion/abf4b8f7cd4a4c70bece35678d178321</a></li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>A inversão de prioridade quase colocou fim no <em>Rover Pathfinder</em> da NASA que pousou em marte em 1997, uma inversão de prioridade fazia com que o sistema parasse de funcionar, só voltando a operar quando o <strong>Watchdog Timer</strong> do sistema reiniciava o robô. Engenheiros do RTOS usado no robô, o VxWorks, trabalharam horas na réplica em terra do mesmo a fim de identificar o problema, depois de muito depurar o projeto eles conseguiram descobrir o causador do problema, um mutex.</p>
+<p>Para saber mais a respeito, acesse: <a href="http://www.cs.cornell.edu/courses/cs614/1999sp/papers/pathfinder.html">http://www.cs.cornell.edu/courses/cs614/1999sp/papers/pathfinder.html</a></p>
+</div>
+<h3 id="mutex-no-freertos">mutex no freeRtos</h3>
+<p>O mutex no FreeRTOS é como um semáforo binário, com uma única diferença: implementa herança prioritária (<em>priority inheritance</em>), que tenta minimizar os efeitos da inversão de prioridade. Este mecanismo faz com que a tarefa de baixa prioridade herde temporariamente a prioridade da tarefa de alta que necessita do recurso, ou seja, a tarefa de prioridade baixa, passa a ter alta prioridade até liberar o recurso.</p>
+<p><img alt="" src="https://www.freertos.org/fr-content-src/uploads/2018/07/mutexes.gif"/></p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>A solução para o Rover que foi para Marte foi a de ativar o mecanismo de herança prioritária no mutex que estava dando o problema.</p>
+<blockquote>
+<p>When created, a VxWorks mutex object accepts a boolean parameter that indicates whether priority inheritance should be performed by the mutex. The mutex in question had been initialized with the parameter off; had it been on, the low-priority meteorological thread would have inherited the priority of the high-priority data bus thread blocked on it while it held the mutex, causing it be scheduled with higher priority than the medium-priority communications task, thus preventing the priority inversion. Once diagnosed, it was clear to the JPL engineers that using priority inheritance would prevent the resets they were seeing. </p>
+</blockquote>
+</div>
+<h3 id="exemplo">Exemplo</h3>
+<p>A seguir um exemplo de mutex adaptado do livro do freertos. No caso a task1 necessita utilizar o printf e para isso requisita o mutex, após o uso a task libera o mutex permitindo que outra task utilize o printf.</p>
+<div class="highlight"><pre><span></span><code><span class="n">SemaphoreHandle_t</span><span class="w"> </span><span class="n">xMutex</span><span class="p">;</span><span class="w"></span>
+
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">task1</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">    </span><span class="cm">/* Attempt to take the mutex, blocking indefinitely to wait for the mutex if</span>
+<span class="cm">    it is not available straight away. The call to xSemaphoreTake() will only</span>
+<span class="cm">    return when the mutex has been successfully obtained, so there is no need</span>
+<span class="cm">    to check the function return value. If any other delay period was used then</span>
+<span class="cm">    the code must check that xSemaphoreTake() returns pdTRUE before accessing</span>
+<span class="cm">    the shared resource (which in this case is standard out). As noted earlier</span>
+<span class="cm">    in this book, indefinite time outs are not recommended for production code. */</span><span class="w"></span>
+<span class="w">    </span><span class="n">xSemaphoreTake</span><span class="p">(</span><span class="w"> </span><span class="n">xMutex</span><span class="p">,</span><span class="w"> </span><span class="n">portMAX_DELAY</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="cm">/* The following line will only execute once the mutex has been successfully</span>
+<span class="cm">    obtained. Standard out can be accessed freely now as only one task can</span>
+<span class="cm">    have the mutex at any one time. */</span><span class="w"></span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="w"> </span><span class="s">"%s"</span><span class="p">,</span><span class="w"> </span><span class="s">"Ola 1"</span><span class="w"> </span><span class="p">);</span><span class="w"> </span><span class="c1">// (1)</span>
+<span class="w">    </span><span class="n">fflush</span><span class="p">(</span><span class="w"> </span><span class="n">stdout</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="cm">/* The mutex MUST be given back! */</span><span class="w"></span>
+<span class="w">    </span><span class="n">xSemaphoreGive</span><span class="p">(</span><span class="w"> </span><span class="n">xMutex</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">vTaskDelay</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">task2</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">xSemaphoreTake</span><span class="p">(</span><span class="w"> </span><span class="n">xMutex</span><span class="p">,</span><span class="w"> </span><span class="n">portMAX_DELAY</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="w"> </span><span class="s">"%s"</span><span class="p">,</span><span class="w"> </span><span class="s">"Ola 2"</span><span class="w"> </span><span class="p">);</span><span class="w"> </span><span class="c1">// (2)</span>
+<span class="w">    </span><span class="n">fflush</span><span class="p">(</span><span class="w"> </span><span class="n">stdout</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">xSemaphoreGive</span><span class="p">(</span><span class="w"> </span><span class="n">xMutex</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">vTaskDelay</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">   </span><span class="n">xMutex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">xSemaphoreCreateMutex</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">   </span><span class="c1">// ....</span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<ol>
+<li>Região crítica de compartilhamento de recursos.</li>
+<li>Região crítica de compartilhamento de recursos.</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Meio ruim ter que ficar utilizando o mutex toda hora que for realizar um printf, a solução para isso é encapsularmos em uma função o uso do mutex e usamos essa função no lugar do printf:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">printfMutex</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">xSemaphoreTake</span><span class="p">(</span><span class="w"> </span><span class="n">xMutex</span><span class="p">,</span><span class="w"> </span><span class="n">portMAX_DELAY</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="w"> </span><span class="s">"%s"</span><span class="p">,</span><span class="w"> </span><span class="n">pcString</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">fflush</span><span class="p">(</span><span class="w"> </span><span class="n">stdout</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">xSemaphoreGive</span><span class="p">(</span><span class="w"> </span><span class="n">xMutex</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">task1</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">printfMutex</span><span class="p">(</span><span class="s">"olá 1"</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">vTaskDelay</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">task2</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">printfMutex</span><span class="p">(</span><span class="s">"olá 2"</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">vTaskDelay</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+</div>
+<h2 id="programando">Programando</h2>
+<p>Agora vamos começar a programar, lembrem que a documentação do LVGL fala que: <em>If you need to use real tasks or threads, you need a mutex which should be invoked before the call of <code>lv_timer_handler</code> and released after it.</em>.</p>
+<div class="admonition info">
+<p>Como estamos no RTOS estamos usando a funcão <code>lv_task_handler</code> no lugar da <code>lv_timer_handler</code>.</p>
+</div>
+<div class="admonition exercise hidden" data-pageslug="navigation-Labs-Lab_mutex-lab-" id="navigation-Labs-Lab_mutex-lab-0">
+<p class="admonition-title">Task mutex <code>lv_task_handler</code></p>
+<ol>
+<li>Crie a variável global que irá servir de mutex chamado de <code>xMutexLVGL</code> do tipo <code>SemaphoreHandle_t</code></li>
+<li>No main crie o mutex  com <code>xSemaphoreCreateMutex();</code></li>
+<li>Na <code>task_lcd</code> faça a requisição do mutex antes de chamar <code>lv_tick_inc</code> e a liberação depois do <code>lv_task_handler</code></li>
+</ol>
+<p>Execute o código e verifique que <mark>NADA DEVE TER MUDADO</mark>. Estamos apenas melhorando a qualidade do nosso código e garantindo que não teremos erros futuros.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Preencher ao finalizar o lab</p>
+</div>
+<iframe frameborder="0" height="320" marginheight="0" marginwidth="0" src="https://docs.google.com/forms/d/e/1FAIpQLSfeZBEEZDfJPwbbelD1uf3iBFlt1B-yS0HP4X90TwejCbcMtw/viewform?embedded=true" width="640">Carregando…</iframe>
+<h2 id="aps-2">APS 2</h2>
+<p>Este laboratório serve para ajudar vocês com a APS2, agora podem ter mais de uma task atualizando partes diferentes do LCD via LVGL, lembrem apenas de requisitar o mutex antes e liberar depois de terem usado. </p>
+
+
+
+
+
+                
+
+  <!-- Giscus -->
+  <h2 id="__comments">Comments</h2>
+  <!-- Replace with generated snippet -->
+    <script src="https://giscus.app/client.js"
+            data-repo="insper/ComputacaoEmbarcada"
+            data-repo-id="MDEwOlJlcG9zaXRvcnkxNjkxMjgzMjE="
+            data-category="General"
+            data-category-id="DIC_kwDOChSxgc4COBPa"
+            data-mapping="pathname"
+            data-reactions-enabled="0"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="light" 
+            data-lang="en"
+            crossorigin="anonymous"
+            async>
+    </script>
+
+  <!-- Reload on palette change -->
+  <script>
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object")
+      if (palette.color.scheme === "slate") {
+        var giscus = document.querySelector("script[src*=giscus]")
+        giscus.setAttribute("data-theme", "dark")
+
+
+      }
+
+    /* Register event handlers after documented loaded */
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate" ? "dark" : "light"
+
+          /* Instruct Giscus to change theme */
+          var frame = document.querySelector(".giscus-frame")
+          frame.contentWindow.postMessage(
+            { giscus: { setConfig: { theme } } },
+            "https://giscus.app"
+          )
+        }
+      })
+    })
+  </script>
+
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; Rafael Corsi @ insper
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["content.code.annotate"], "search": "../../../../assets/javascripts/workers/search.5bf1dace.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.078830c0.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.0.0/js-yaml.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/gh/insper-education/active-handout-plugins-js@main/package/plugin-bundle.js"></script>
+      
+    
+  </body>
+</html>
